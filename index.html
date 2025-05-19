@@ -5,117 +5,310 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>CBT SMP NEGERI 1 SUKASADA</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-  />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <style>
     @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+    
+    :root {
+      --color-primary: #3b82f6;
+      --color-secondary: #10b981;
+      --color-accent: #f59e0b;
+    }
+    
     body {
       font-family: "Poppins", sans-serif;
-      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
       min-height: 100vh;
       color: #fff;
       overflow-x: hidden;
+      position: relative;
     }
+    
+    .bg-animation {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: linear-gradient(-45deg, #0f172a, #1e293b, #1e40af, #1e3a8a);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+    }
+    
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    
     .card {
       backdrop-filter: blur(16px) saturate(180%);
       -webkit-backdrop-filter: blur(16px) saturate(180%);
       background-color: rgba(15, 23, 42, 0.7);
-      border-radius: 12px;
+      border-radius: 16px;
       border: 1px solid rgba(255, 255, 255, 0.1);
       transition: all 0.3s ease;
       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
     }
+    
     .card:hover {
       transform: translateY(-5px);
       box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4);
       background-color: rgba(15, 23, 42, 0.8);
     }
+    
     .subject-card {
       transition: all 0.3s ease;
       border: 1px solid rgba(255, 255, 255, 0.05);
+      position: relative;
+      overflow: hidden;
     }
+    
+    .subject-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+      transition: 0.5s;
+    }
+    
+    .subject-card:hover::before {
+      left: 100%;
+    }
+    
     .subject-card:hover {
       transform: scale(1.03);
       border-color: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
     }
+    
     .fade-in {
-      animation: fadeIn 0.5s ease-in;
+      animation: fadeIn 0.8s ease-in forwards;
+      opacity: 0;
     }
+    
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
-
-    /* Cursor blinking effect for typing */
-    .cursor {
+    
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+    
+    .float {
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+    
+    .typing-cursor {
       display: inline-block;
-      width: 10px;
-      height: 1em;
+      width: 8px;
+      height: 1.2em;
       background-color: white;
       animation: blink 0.7s step-end infinite;
+      vertical-align: middle;
+      margin-left: 4px;
     }
+    
     @keyframes blink {
       0% { opacity: 1; }
       50% { opacity: 0; }
       100% { opacity: 1; }
     }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+      background: linear-gradient(135deg, var(--color-primary), #0ea5e9);
+    }
+    
+    .btn-secondary {
+      background: linear-gradient(135deg, #64748b, #475569);
+      transition: all 0.3s ease;
+    }
+    
+    .btn-secondary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+      background: linear-gradient(135deg, #64748b, #334155);
+    }
+    
+    .logo-container {
+      box-shadow: 0 0 0 4px rgba(255,255,255,0.1), 0 0 0 8px rgba(255,255,255,0.05);
+      animation: borderPulse 4s infinite;
+    }
+    
+    @keyframes borderPulse {
+      0% { box-shadow: 0 0 0 4px rgba(255,255,255,0.1), 0 0 0 8px rgba(255,255,255,0.05); }
+      50% { box-shadow: 0 0 0 6px rgba(255,255,255,0.15), 0 0 0 12px rgba(255,255,255,0.1); }
+      100% { box-shadow: 0 0 0 4px rgba(255,255,255,0.1), 0 0 0 8px rgba(255,255,255,0.05); }
+    }
+    
+    .ripple {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      transform: scale(0);
+      animation: ripple 1s linear;
+      pointer-events: none;
+    }
+    
+    @keyframes ripple {
+      to {
+        transform: scale(4);
+        opacity: 0;
+      }
+    }
+
+    /* Prakarya specific animation */
+    .prakarya-card {
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .prakarya-card::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        to bottom right,
+        rgba(255,255,255,0) 45%,
+        rgba(255,255,255,0.1) 50%,
+        rgba(255,255,255,0) 55%
+      );
+      transform: rotate(30deg);
+      animation: prakaryaShine 3s infinite;
+    }
+    
+    @keyframes prakaryaShine {
+      0% { transform: translateX(-100%) rotate(30deg); }
+      100% { transform: translateX(100%) rotate(30deg); }
+    }
+
+    /* Subject card hover animations */
+    .subject-card:hover i {
+      animation: iconBounce 0.5s ease;
+    }
+    
+    @keyframes iconBounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+
+    /* Particle animations */
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.8;
+      animation: floatParticle 15s linear infinite;
+    }
+    
+    @keyframes floatParticle {
+      0% { transform: translate(0, 0) rotate(0deg); }
+      25% { transform: translate(50px, -50px) rotate(90deg); }
+      50% { transform: translate(100px, 0) rotate(180deg); }
+      75% { transform: translate(50px, 50px) rotate(270deg); }
+      100% { transform: translate(0, 0) rotate(360deg); }
+    }
   </style>
 </head>
-<body class="bg-pattern flex items-center justify-center p-4 md:p-8">
+<body class="flex items-center justify-center p-4 md:p-8">
+  <div class="bg-animation"></div>
+  
+  <!-- Floating particles -->
+  <div class="particles">
+    <div class="particle bg-white/10 w-2 h-2 top-1/4 left-1/5" style="animation-delay: 0s;"></div>
+    <div class="particle bg-white/10 w-3 h-3 top-1/3 right-1/4" style="animation-delay: 2s;"></div>
+    <div class="particle bg-white/10 w-1 h-1 bottom-1/4 left-1/3" style="animation-delay: 4s;"></div>
+    <div class="particle bg-white/10 w-2 h-2 bottom-1/3 right-1/5" style="animation-delay: 6s;"></div>
+    <div class="particle bg-white/5 w-4 h-4 top-1/5 right-1/6" style="animation-delay: 8s;"></div>
+    <div class="particle bg-white/5 w-1 h-1 bottom-1/6 left-1/4" style="animation-delay: 10s;"></div>
+  </div>
+  
   <div class="w-full max-w-3xl">
-    <div class="flex flex-col items-center mb-8 fade-in">
-      <div class="w-24 h-24 rounded-full bg-slate-800/50 flex items-center justify-center mb-4 overflow-hidden">
+    <div class="flex flex-col items-center mb-8 fade-in" style="animation-delay: 0.2s;">
+      <div class="logo-container w-24 h-24 rounded-full bg-slate-800/50 flex items-center justify-center mb-4 overflow-hidden float">
         <img src="https://i.ibb.co.com/3YjdDh2N/logo-sekolah-FINAL.png" alt="Logo Sekolah" class="object-contain h-full" />
       </div>
       <h1 class="text-3xl md:text-4xl font-bold text-center mb-2 bg-gradient-to-r from-amber-400 to-amber-200 bg-clip-text text-transparent">
         SMP Negeri 1 Sukasada
       </h1>
-      <p class="text-slate-300">Tahun Pelajaran 2024/2025</p>
+      <p class="text-sm text-slate-300">Computer Based Test Platform</p>
     </div>
 
-    <div class="card p-6 md:p-8 mb-6 fade-in">
-      <h2 class="text-2xl font-bold text-center mb-6 text-slate-100">
-        
-      </h2>
-
+    <div class="card p-6 md:p-8 mb-6 fade-in" style="animation-delay: 0.4s;">
       <div id="loginSection">
-        <div class="flex flex-col items-center fade-in">
+        <div class="flex flex-col items-center">
           <div class="text-center mb-6 text-slate-300">
-            <p id="typingText" class="text-2xl font-bold h-12"></p> <!-- Perbesar tulisan -->
-            <p class="text-sm mt-2">Silakan masukkan NIS Anda dan selamat mengerjakan!</p>
+            <p id="typingText" class="text-xl md:text-2xl font-bold h-12 flex justify-center items-center"></p>
+            <p class="text-sm mt-2 opacity-80">Silakan masukkan NIS Anda dan selamat mengerjakan!</p>
           </div>
 
-          <div class="relative w-full max-w-xs mb-6">
+          <div class="relative w-full max-w-xs mb-6 fade-in" style="animation-delay: 0.6s;">
             <input
               type="text"
               id="nisInput"
               placeholder="Masukkan NIS Anda"
-              class="w-full px-4 py-3 rounded-lg bg-slate-800/40 border border-slate-700 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent placeholder-slate-400 text-slate-200"
+              class="w-full px-4 py-3 rounded-lg bg-slate-800/40 border border-slate-700 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent placeholder-slate-400 text-slate-200 transition-all duration-300"
             />
             <i class="fas fa-user-graduate absolute right-3 top-3 text-slate-400"></i>
           </div>
           <button
             onclick="showLinks()"
-            class="px-8 py-3 bg-gradient-to-r from-indigo-600 to-blue-500 rounded-full font-medium text-white hover:from-indigo-700 hover:to-blue-600 transition-all duration-300 flex items-center"
+            class="btn-primary px-8 py-3 rounded-full font-medium text-white flex items-center fade-in relative overflow-hidden"
+            style="animation-delay: 0.8s;"
+            id="loginBtn"
           >
             <i class="fas fa-sign-in-alt mr-2"></i> Masuk
           </button>
         </div>
       </div>
 
-      <div id="studentName" class="text-center font-semibold text-xl mt-6"></div>
-      <div id="jadwalText" class="text-center text-slate-200 mt-4"></div> <!-- Text untuk jadwal -->
-      <div id="mapelLinks" class="hidden grid grid-cols-1 md:grid-cols-2 gap-4 mt-6"></div>
-      <div id="backButton" class="hidden text-center mt-6">
-        <button
-          onclick="resetPage()"
-          class="px-8 py-3 bg-gradient-to-r from-gray-600 to-gray-500 rounded-full font-medium text-white hover:from-gray-700 hover:to-gray-600 transition-all duration-300"
-        >
-          Kembali ke Menu Awal
-        </button>
+      <div id="studentInfo" class="hidden text-center">
+        <div id="studentName" class="font-semibold text-xl md:text-2xl mt-4 mb-2 bg-gradient-to-r from-amber-400 to-amber-200 bg-clip-text text-transparent"></div>
+        <div id="studentClass" class="text-sm text-slate-300 mb-4"></div>
+        <div id="jadwalText" class="text-center text-slate-300 mb-6 text-sm md:text-base"></div>
+        
+        <div id="mapelLinks" class="hidden grid grid-cols-1 md:grid-cols-2 gap-4 mt-6"></div>
+        
+        <div id="backButton" class="hidden text-center mt-8">
+          <button
+            onclick="resetPage()"
+            class="btn-secondary px-8 py-3 rounded-full font-medium text-white relative overflow-hidden"
+          >
+            <i class="fas fa-arrow-left mr-2"></i> Kembali ke Menu Awal
+          </button>
+        </div>
       </div>
+    </div>
+    
+    <div class="text-center text-xs text-slate-400 fade-in" style="animation-delay: 1s;">
+      © 2025 SMP Negeri 1 Sukasada. All rights reserved. Gede Pujana
     </div>
   </div>
 
@@ -423,70 +616,186 @@
     ];
 
     const subjects = [
-      { name: "Bahasa Indonesia", icon: "fa-book-open", color: "from-blue-600 to-cyan-600", link7: "https://forms.gle/link-bindo-7", link8: "https://forms.gle/link-bindo-8", link9: "https://forms.gle/zKoUob6uHvLZ7A3s6"  },
-      { name: "Agama Hindu", icon: "fa-pray", color: "from-teal-600 to-cyan-600", link7: "https://forms.gle/link-agama-7", link8: "https://forms.gle/link-agama-8", link9: "https://forms.gle/gEAQM9AXEguNKn3L6"  },    
-      { name: "Bahasa Inggris", icon: "fa-language", color: "from-indigo-600 to-blue-600", link7: "https://forms.gle/link-inggris-7", link8: "https://forms.gle/link-inggris-8", link9: "https://forms.gle/dYjmxzVEC9KF6QAbA"  },
-      { name: "Informatika", icon: "fa-laptop-code", color: "from-purple-600 to-indigo-600", link7: "https://forms.gle/link-informatika-7", link8: "https://forms.gle/link-informatika-8", link9: "https://forms.gle/REt9G5s9PykacAtR8" },
-      { name: "Matematika", icon: "fa-calculator", color: "from-red-600 to-pink-600", link7: "https://forms.gle/XR9Pg44hp8afDGbBA", link8: "https://forms.gle/V4T7q7Ta7NspkkhE7", link9: "https://forms.gle/K5KcSohFMoJfa6m6A" },
-      { name: "Seni Budaya", icon: "fa-palette", color: "from-pink-600 to-rose-600", link7: "https://forms.gle/link-seni-7", link8: "https://forms.gle/link-seni-8", link9: "https://forms.gle/oKeYt6jB9umVp7gH8" },
-      { name: "IPA", icon: "fa-flask", color: "from-green-600 to-emerald-600", link7: "https://forms.gle/link-ipa-7", link8: "https://forms.gle/link-ipa-8", link9: "https://forms.gle/2EQhEZeiJgcqxQyw9" },
-      { name: "Bahasa Bali", icon: "fa-language", color: "from-lime-600 to-green-500", link7: "https://forms.gle/link-prakarya-7", link8: "https://forms.gle/link-prakarya-8", link9: "https://forms.gle/cvTEmWbzRR6Jh6dk6" },
-      { name: "IPS", icon: "fa-globe-asia", color: "from-yellow-600 to-amber-600", link7: "https://forms.gle/link-ips-7", link8: "https://forms.gle/link-ips-8", link9: "https://forms.gle/Ftvbq1PLRQuE4pwv6" },
-      { name: "PKn", icon: "fa-landmark", color: "from-orange-600 to-red-600", link7: "https://forms.gle/link-ppkn-7", link8: "https://forms.gle/link-ppkn-8", link9: "https://forms.gle/P7XiJsQAFuThdxnv9" },
-      { name: "PJOK", icon: "fa-dumbbell", color: "from-cyan-600 to-sky-500", link7: "https://forms.gle/link-pjok-7", link8: "https://forms.gle/link-pjok-8", link9: "https://forms.gle/kjisrqS1HKKZaWED7" }
+      { name: "Bahasa Indonesia", icon: "fa-book-open", color: "from-blue-600 to-cyan-600", link7: "https://forms.gle/link-bindo-7", link8: "https://forms.gle/link-bindo-8", link9: "https://forms.gle/zKoUob6uHvLZ7A3s6", specialClass: "prakarya-card" },
+      { name: "Agama Hindu", icon: "fa-pray", color: "from-teal-600 to-cyan-600", link7: "https://forms.gle/link-agama-7", link8: "https://forms.gle/link-agama-8", link9: "https://forms.gle/gEAQM9AXEguNKn3L6", specialClass: "prakarya-card" },    
+      { name: "Bahasa Inggris", icon: "fa-language", color: "from-indigo-600 to-blue-600", link7: "https://forms.gle/link-inggris-7", link8: "https://forms.gle/link-inggris-8", link9: "https://forms.gle/dYjmxzVEC9KF6QAbA", specialClass: "prakarya-card" },
+      { name: "Informatika", icon: "fa-laptop-code", color: "from-purple-600 to-indigo-600", link7: "https://forms.gle/link-informatika-7", link8: "https://forms.gle/link-informatika-8", link9: "https://forms.gle/REt9G5s9PykacAtR8", specialClass: "prakarya-card" },
+      { name: "Matematika", icon: "fa-calculator", color: "from-red-600 to-pink-600", link7: "https://forms.gle/XR9Pg44hp8afDGbBA", link8: "https://forms.gle/V4T7q7Ta7NspkkhE7", link9: "https://forms.gle/K5KcSohFMoJfa6m6A",  specialClass: "prakarya-card" },
+      { name: "Seni Budaya", icon: "fa-palette", color: "from-pink-600 to-rose-600", link7: "https://forms.gle/link-seni-7", link8: "https://forms.gle/link-seni-8", link9: "https://forms.gle/oKeYt6jB9umVp7gH8",  specialClass: "prakarya-card" },
+      { name: "IPA", icon: "fa-flask", color: "from-green-600 to-emerald-600", link7: "https://forms.gle/link-ipa-7", link8: "https://forms.gle/link-ipa-8", link9: "https://forms.gle/2EQhEZeiJgcqxQyw9", specialClass: "prakarya-card" },
+      { name: "Bahasa Bali", icon: "fa-language", color: "from-lime-600 to-green-500", link7: "https://forms.gle/link-prakarya-7", link8: "https://forms.gle/link-prakarya-8", link9: "https://forms.gle/cvTEmWbzRR6Jh6dk6", specialClass: "prakarya-card" },
+      { name: "IPS", icon: "fa-globe-asia", color: "from-yellow-600 to-amber-600", link7: "https://forms.gle/link-ips-7", link8: "https://forms.gle/link-ips-8", link9: "https://forms.gle/Ftvbq1PLRQuE4pwv6", specialClass: "prakarya-card" },
+      { name: "PKn", icon: "fa-landmark", color: "from-orange-600 to-red-600", link7: "https://forms.gle/link-ppkn-7", link8: "https://forms.gle/link-ppkn-8", link9: "https://forms.gle/P7XiJsQAFuThdxnv9", specialClass: "prakarya-card" },
+      { name: "PJOK", icon: "fa-dumbbell", color: "from-cyan-600 to-sky-500", link7: "https://forms.gle/link-pjok-7", link8: "https://forms.gle/link-pjok-8", link9: "https://forms.gle/kjisrqS1HKKZaWED7",  specialClass: "prakarya-card" },
+      { name: "Prakarya", icon: "fa-hammer", color: "from-amber-600 to-orange-600", link7: "https://forms.gle/link-prakarya-7", link8: "https://forms.gle/link-prakarya-8", link9: "https://forms.gle/cvTEmWbzRR6Jh6dk6", 
+        specialClass: "prakarya-card" }
     ];
+
+    // Add ripple effect to buttons
+    document.addEventListener('click', function(e) {
+      if (e.target.closest('button')) {
+        const btn = e.target.closest('button');
+        const rect = btn.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        const ripple = document.createElement('span');
+        ripple.classList.add('ripple');
+        ripple.style.left = `${x}px`;
+        ripple.style.top = `${y}px`;
+        
+        btn.appendChild(ripple);
+        
+        setTimeout(() => {
+          ripple.remove();
+        }, 1000);
+      }
+    });
 
     function showLinks() {
       const nis = document.getElementById("nisInput").value.trim();
       const siswa = students.find((s) => s.nis === nis);
 
       if (!siswa) {
-        alert("NIS tidak ditemukan!");
+        // Show error animation
+        const input = document.getElementById("nisInput");
+        input.classList.add('animate-shake');
+        setTimeout(() => {
+          input.classList.remove('animate-shake');
+        }, 500);
+        
+        // Show error message
+        const errorMsg = document.createElement('div');
+        errorMsg.className = 'text-red-400 text-sm mt-2 fade-in';
+        errorMsg.textContent = 'NIS tidak ditemukan!';
+        
+        const existingError = document.querySelector('.text-red-400');
+        if (existingError) existingError.remove();
+        
+        input.parentNode.appendChild(errorMsg);
         return;
       }
 
-      document.getElementById("studentName").textContent = `Halo, ${siswa.name}`;
+      document.getElementById("studentName").textContent = siswa.name;
+      document.getElementById("studentClass").textContent = `Kelas ${siswa.kelas}`;
       document.getElementById("jadwalText").textContent = "Silakan Pilih Mata Pelajaran Sesuai dengan Jadwal";
 
-      document.getElementById("loginSection").style.display = 'none';
+      document.getElementById("loginSection").classList.add("hidden");
+      document.getElementById("studentInfo").classList.remove("hidden");
       document.getElementById("backButton").classList.remove("hidden");
 
       const container = document.getElementById("mapelLinks");
       container.innerHTML = "";
 
-      subjects.forEach((subject) => {
+      // Animate in each subject card with delay
+      subjects.forEach((subject, index) => {
         const link = subject[`link${siswa.kelas}`];
         const el = document.createElement("a");
         el.href = link;
         el.target = "_blank";
-        el.className = `subject-card bg-gradient-to-br ${subject.color} p-4 rounded-xl text-white flex items-center space-x-4`;
-        el.innerHTML = `<i class="fas ${subject.icon} text-xl"></i><span class="font-semibold">${subject.name}</span>`;
+        el.className = `subject-card bg-gradient-to-br ${subject.color} p-4 rounded-xl text-white flex items-center space-x-4 fade-in ${subject.specialClass || ''}`;
+        el.style.animationDelay = `${0.2 + (index * 0.1)}s`;
+        el.innerHTML = `
+          <i class="fas ${subject.icon} text-xl"></i>
+          <span class="font-semibold">${subject.name}</span>
+          <i class="fas fa-chevron-right ml-auto opacity-70"></i>
+        `;
+        
+        // Add special animation for Prakarya
+        if (subject.name === "Prakarya") {
+          el.addEventListener('mouseenter', () => {
+            const hammerIcon = el.querySelector('i.fa-hammer');
+            hammerIcon.style.animation = 'hammerHit 0.5s ease';
+            setTimeout(() => {
+              hammerIcon.style.animation = '';
+            }, 500);
+          });
+        }
+        
         container.appendChild(el);
       });
 
       container.classList.remove("hidden");
+      
+      // Add hammer animation for Prakarya
+      const style = document.createElement('style');
+      style.textContent = `
+        @keyframes hammerHit {
+          0% { transform: rotate(0deg); }
+          25% { transform: rotate(-30deg); }
+          50% { transform: rotate(0deg); }
+          75% { transform: rotate(30deg); }
+          100% { transform: rotate(0deg); }
+        }
+      `;
+      document.head.appendChild(style);
     }
 
     function resetPage() {
-      document.getElementById("loginSection").style.display = 'block';
-      document.getElementById("studentName").textContent = '';
-      document.getElementById("jadwalText").textContent = '';
+      document.getElementById("loginSection").classList.remove("hidden");
+      document.getElementById("studentInfo").classList.add("hidden");
       document.getElementById("mapelLinks").classList.add("hidden");
       document.getElementById("backButton").classList.add("hidden");
       document.getElementById("nisInput").value = '';
+      
+      // Remove any error messages
+      const errorMsg = document.querySelector('.text-red-400');
+      if (errorMsg) errorMsg.remove();
     }
 
     // Typing Effect
     const text = "Selamat Datang di Web Sumatif SMP Negeri 1 Sukasada";
     let idx = 0;
     function typeText() {
+      const typingElement = document.getElementById("typingText");
+      
       if (idx < text.length) {
-        document.getElementById("typingText").innerHTML += text.charAt(idx);
+        typingElement.innerHTML = text.substring(0, idx) + '<span class="typing-cursor"></span>';
         idx++;
         setTimeout(typeText, 70);
+      } else {
+        typingElement.innerHTML = text;
       }
     }
-    window.onload = typeText;
+    
+    // Initialize animations when page loads
+    window.onload = function() {
+      typeText();
+      
+      // Add shake animation to Tailwind config
+      tailwind.config = {
+        theme: {
+          extend: {
+            animation: {
+              shake: 'shake 0.5s linear',
+              float: 'float 6s ease-in-out infinite',
+              hammerHit: 'hammerHit 0.5s ease'
+            },
+            keyframes: {
+              shake: {
+                '0%, 100%': { transform: 'translateX(0)' },
+                '20%, 60%': { transform: 'translateX(-5px)' },
+                '40%, 80%': { transform: 'translateX(5px)' },
+              },
+              hammerHit: {
+                '0%': { transform: 'rotate(0deg)' },
+                '25%': { transform: 'rotate(-30deg)' },
+                '50%': { transform: 'rotate(0deg)' },
+                '75%': { transform: 'rotate(30deg)' },
+                '100%': { transform: 'rotate(0deg)' }
+              }
+            }
+          }
+        }
+      }
+      
+      // Add floating particles
+      const particles = document.querySelectorAll('.particle');
+      particles.forEach((particle, index) => {
+        particle.style.animationDuration = `${15 + (index * 3)}s`;
+        particle.style.animationDelay = `${index * 2}s`;
+      });
+    };
   </script>
 </body>
 </html>
